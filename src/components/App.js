@@ -1,22 +1,33 @@
-import React ,{useRef,useState,useEffect} from 'react'
-import '../styles/App.css';
-import InputField from './InputField.js';
+import React, { useRef } from 'react';
+import InputField from './InputField';
+
 const App = () => {
- 
-//code here 
+  const inputRef = useRef(null);
 
+  const setTextAreaValue = () => {
+    const inputValue = inputRef.current.value;
+    const textarea = document.getElementById('textarea');
+    textarea.value = inputValue;
+  };
 
- 
+  const focusInput = () => {
+    inputRef.current.focus();
+  };
+
   return (
     <div>
-    <InputField  ref={newRef}  type="text"/><br/>
-    <button id="settingValueButton" onClick={settingValue}>Set Value</button>
-    <button id="focusInputButton" onClick={focusInput}>Focus the input</button><br/><br/>
-     <textarea id="textarea" value={values}></textarea>
-
+      <input id="input" type="text" ref={inputRef} />
+      <button id="settingValueButton" onClick={setTextAreaValue}>
+        Set Value
+      </button>
+      <button id="focusInputButton" onClick={focusInput}>
+        Focus Input
+      </button>
+      <br />
+      <textarea id="textarea" rows="5" cols="30" />
+      <InputField ref={inputRef} />
     </div>
   );
-}
-
+};
 
 export default App;
