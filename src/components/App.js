@@ -1,33 +1,36 @@
-import React, { useRef } from 'react';
-import InputField from './InputField';
-
+import React, { useRef, useState } from 'react'
+import '../styles/App.css';
+import InputField from './InputField.js';
 const App = () => {
-  const inputRef = useRef(null);
 
-  const setTextAreaValue = () => {
-    const inputValue = inputRef.current.value;
-    const textarea = document.getElementById('textarea');
-    textarea.value = inputValue;
+  const [inputValue, setInputValue] = useState("");
+  const [textareaValue, setTextareaValue] = useState("");
+
+  const newRef = useRef(null);
+
+  const inputHandler = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const settingValue = () => {
+    setTextareaValue(inputValue)
   };
 
   const focusInput = () => {
-    inputRef.current.focus();
-  };
+    newRef.current.focus();
+  }
+
 
   return (
     <div>
-      <input id="input" type="text" ref={inputRef} />
-      <button id="settingValueButton" onClick={setTextAreaValue}>
-        Set Value
-      </button>
-      <button id="focusInputButton" onClick={focusInput}>
-        Focus Input
-      </button>
-      <br />
-      <textarea id="textarea" rows="5" cols="30" />
-      <InputField ref={inputRef} />
+      <InputField ref={newRef} value={inputValue} onChange={inputHandler} /><br />
+      <button id="settingValueButton" onClick={settingValue}>Set Value</button>
+      <button id="focusInputButton" onClick={focusInput}>Focus the input</button><br /><br />
+      <textarea id="textarea" value={textareaValue} readOnly></textarea>
+
     </div>
   );
-};
+}
+
 
 export default App;
